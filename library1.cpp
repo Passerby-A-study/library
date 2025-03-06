@@ -61,3 +61,21 @@ void User::BorrowBook(Library& Li) {
 		cin >> b;
 	}
 }
+
+//=================Menu================
+void PrintMenu() {
+	cout << ":";
+}
+int PrintLogin() {
+	cout << "Pls Login"<<endl;
+	cout << "1 : Admin" << endl;
+	cout << "2 : User" << endl;
+	cout << "Choose Your Identity(Enter the Number, Q / q to Quit):" << endl;
+	int choice;
+	cin >> choice;
+	if (!cin) {
+		cout << "Bye! ";
+		return 0;
+	}
+	return choice;
+}

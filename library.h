@@ -22,12 +22,6 @@ public:
 	void Show();
 	bool isBorrow(string& s);
 };
-//=============Get=====================
-class Get {
-public:
-	virtual string GetName() = 0;
-	virtual string GetID() = 0;
-};
 
 //=============Book====================
 class Book {
@@ -64,3 +58,7 @@ public:
 	void BorrowBook(Library& Li);
 	void Show(Library& Li);
 };
+
+//=============Menu=====================
+void PrintMenu();
+int PrintLogin();
