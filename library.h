@@ -43,6 +43,9 @@ private:
 	string UserID;
 public:
 	Person(string& name, string& id) :UserName(name), UserID(id) {}
+	virtual string GetName() { return UserName; }
+	virtual string GetID() { return UserID; };
+
 };
 //=============Admin===================
 class Admin:public Person {
@@ -50,6 +53,8 @@ public:
 	Admin(string& name, string& id) :Person(name,id) {}
 	void AddBook(Library& Li);
 	void Show(Library& Li);
+	void Choose(Library& Li);
+	int PrintAdminMenu(Library& Li);
 };
 //=============Client==================
 class User :public Person {
@@ -57,6 +62,8 @@ public:
 	User(string& name, string& id) :Person(name, id) {}
 	void BorrowBook(Library& Li);
 	void Show(Library& Li);
+	void Choose(Library& Li);
+	int PrintUserMenu(Library& Li);
 };
 
 //=============Menu=====================

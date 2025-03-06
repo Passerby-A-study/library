@@ -16,6 +16,34 @@ void Admin::Show(Library & Li) {
 	cout << "Book_Name" << "        " << "Book_ID"<<"          " << "Status" << endl;
 	Li.Show();
 }
+int Admin::PrintAdminMenu(Library& Li) {
+	cout << "Welcome " <<GetName()<<" !" << endl;
+	cout << "1 : Show the Books in the Shelter" << endl;
+	cout << "2 : Add Book" << endl;
+	cout << "Choose Your Identity(Enter the Number, Q / q to Quit):" << endl;
+	int choice;
+	cin >> choice;
+	if (!cin) {
+		cout << "Bye! ";
+		return 0;
+	}
+	return choice;
+}
+void Admin::Choose(Library& Li) {
+	while (1) {
+		int choice = PrintAdminMenu(Li);
+		switch (choice) {
+		case 1:
+			Show(Li);
+			break;
+		case 2:
+			AddBook(Li);
+			break;
+		case 0:
+			return;
+		}
+	}
+}
 //===============Library=================
 void Library::Add(Book* b) {
 	BookShelter.push_back(b);
@@ -61,6 +89,34 @@ void User::BorrowBook(Library& Li) {
 		cin >> b;
 	}
 }
+int User::PrintUserMenu(Library& Li) {
+	cout << "Welcome " << GetName() << " !" << endl;
+	cout << "1 : Show the Books in the Shelter" << endl;
+	cout << "2 : Borrow Book" << endl;
+	cout << "Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
+	int choice;
+	cin >> choice;
+	if (!cin) {
+		cout << "Bye! ";
+		return 0;
+	}
+	return choice;
+}
+void User::Choose(Library& Li) {
+	while (1) {
+		int choice = PrintUserMenu(Li);
+		switch (choice) {
+		case 1:
+			Show(Li);
+			break;
+		case 2:
+			BorrowBook(Li);
+			break;
+		case 0:
+			return;
+		}
+	}
+}
 
 //=================Menu================
 void PrintMenu() {
@@ -70,7 +126,7 @@ int PrintLogin() {
 	cout << "Pls Login"<<endl;
 	cout << "1 : Admin" << endl;
 	cout << "2 : User" << endl;
-	cout << "Choose Your Identity(Enter the Number, Q / q to Quit):" << endl;
+	cout << "Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
 	int choice;
 	cin >> choice;
 	if (!cin) {
