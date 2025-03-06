@@ -20,6 +20,7 @@ private:
 public:
 	void Add(Book* b);
 	void Show();
+	bool isBorrow(string& s);
 };
 //=============Get=====================
 class Get {
@@ -38,7 +39,8 @@ public:
 	Book(string&name,string&id,bool ib=false):BookName(name),BookID(id),isBorrow(ib){}
 	virtual string GetName() { return BookName; }
 	virtual string GetID() { return BookID; };
-	virtual string GetStatus() { return BookID; };
+	virtual bool GetStatus() { return isBorrow; }
+	virtual void ChangeStatus() { isBorrow=!isBorrow; }
 };
 //=============Person==================
 class Person {
@@ -47,7 +49,6 @@ private:
 	string UserID;
 public:
 	Person(string& name, string& id) :UserName(name), UserID(id) {}
-	Person(){}
 };
 //=============Admin===================
 class Admin:public Person {
@@ -59,6 +60,7 @@ public:
 //=============Client==================
 class User :public Person {
 public:
-	User();
-	void BorrowBook();
+	User(string& name, string& id) :Person(name, id) {}
+	void BorrowBook(Library& Li);
+	void Show(Library& Li);
 };
