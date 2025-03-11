@@ -1,5 +1,6 @@
 #include"library.h"
-
+#include <iomanip>
+#include <cstdlib> 
 //=============Admin===================
 void Admin::AddBook(Library& Li) {
 	string name;
@@ -11,20 +12,21 @@ void Admin::AddBook(Library& Li) {
 	Book* p = new Book(name, id);
 	Li.Add(p);
 }
-void Admin::Show(Library & Li) {
+void Admin::Show(Library& Li) {
 	cout << "BookShelter: " << endl;
-	cout << "Book_Name" << "        " << "Book_ID"<<"          " << "Status" << endl;
+	cout << std::setw(20) << "Book_Name" << std::setw(20) << "Book_ID" << std::setw(20) << "Status" << endl;
+	cout << std::setfill('-') << std::setw(60) << "" << std::setfill(' ') << endl; // 分隔线
 	Li.Show();
+	cout << "\n";
 }
 int Admin::PrintAdminMenu(Library& Li) {
 	cout << "Welcome " <<GetName()<<" !" << endl;
 	cout << "1 : Show the Books in the Shelter" << endl;
 	cout << "2 : Add Book" << endl;
-	cout << "Choose Your Identity(Enter the Number, Q / q to Quit):" << endl;
+	cout << "Pls Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
 	int choice;
 	cin >> choice;
 	if (!cin) {
-		cout << "Bye! ";
 		return 0;
 	}
 	return choice;
@@ -47,12 +49,13 @@ void Admin::Choose(Library& Li) {
 //===============Library=================
 void Library::Add(Book* b) {
 	BookShelter.push_back(b);
-	delete b;
+	cout << "\nBook added successfully!\n\n";
 }
 void Library::Show() {
 	for (auto book : BookShelter) {
-		cout << book->GetName() << "       " << book->GetID() << "         " << book->GetStatus() << endl;
+		cout << std::setw(20) << book->GetName() << std::setw(20) << book->GetID() << std::setw(20) << (book->GetStatus() ? "Borrowed" : "Available") << endl;
 	}
+	
 }
 bool Library::isBorrow(string& s) {
 	if (s == "q"||s=="Q")
@@ -77,23 +80,25 @@ bool Library::isBorrow(string& s) {
 //================Client==================
 void User::Show(Library& Li) {
 	cout << "BookShelter: " << endl;
-	cout << "Book_Name" << "        " << "Book_ID" << "          " << "Status" << endl;
+	cout << std::setw(20) << "Book_Name" << std::setw(20) << "Book_ID" << std::setw(20) << "Status" << endl;
+	cout << std::setfill('-') << std::setw(60) << "" << std::setfill(' ') << endl; // 分隔线
 	Li.Show();
+	cout << "\n";
 }
 void User::BorrowBook(Library& Li) {
 	string b;
 	cout << "Pls Enter the ID of Book( q / Q to Quit): ";
 	cin >> b;
 	while (Li.isBorrow(b) == false) {
-		cout << "Pls Enter the ID of Book( q / Q to Quit): ";
 		cin >> b;
 	}
+
 }
 int User::PrintUserMenu(Library& Li) {
 	cout << "Welcome " << GetName() << " !" << endl;
 	cout << "1 : Show the Books in the Shelter" << endl;
 	cout << "2 : Borrow Book" << endl;
-	cout << "Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
+	cout << "Pls Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
 	int choice;
 	cin >> choice;
 	if (!cin) {
@@ -119,18 +124,15 @@ void User::Choose(Library& Li) {
 }
 
 //=================Menu================
-void PrintMenu() {
-	cout << ":";
-}
+
 int PrintLogin() {
-	cout << "Pls Login"<<endl;
+	cout << "Pls Login" << endl;
 	cout << "1 : Admin" << endl;
 	cout << "2 : User" << endl;
-	cout << "Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
+	cout << "Choose Your Identity (Enter the Number, Q / q to Quit):" << endl;
 	int choice;
 	cin >> choice;
 	if (!cin) {
-		cout << "Bye! ";
 		return 0;
 	}
 	return choice;

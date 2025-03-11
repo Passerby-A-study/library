@@ -21,6 +21,17 @@ public:
 	void Add(Book* b);
 	void Show();
 	bool isBorrow(string& s);
+	~Library() {
+        for (auto book : BookShelter) {
+            delete book;
+        }
+        for (auto admin : LibAdmin) {
+            delete admin;
+        }
+        for (auto user : LibUser) {
+            delete user;
+        }
+    }
 };
 
 //=============Book====================
@@ -31,6 +42,7 @@ private:
 	bool isBorrow;
 public:
 	Book(string&name,string&id,bool ib=false):BookName(name),BookID(id),isBorrow(ib){}
+	Book(Book& b);
 	virtual string GetName() { return BookName; }
 	virtual string GetID() { return BookID; };
 	virtual bool GetStatus() { return isBorrow; }
