@@ -21,6 +21,7 @@ public:
 	void Add(Book* b);
 	void Show();
 	bool isBorrow(string& s);
+	bool isReturn(string& s);
 	~Library() {
         for (auto book : BookShelter) {
             delete book;
@@ -42,7 +43,6 @@ private:
 	bool isBorrow;
 public:
 	Book(string&name,string&id,bool ib=false):BookName(name),BookID(id),isBorrow(ib){}
-	Book(Book& b);
 	virtual string GetName() { return BookName; }
 	virtual string GetID() { return BookID; };
 	virtual bool GetStatus() { return isBorrow; }
@@ -73,11 +73,11 @@ class User :public Person {
 public:
 	User(string& name, string& id) :Person(name, id) {}
 	void BorrowBook(Library& Li);
+	void ReturnBook(Library& Li);
 	void Show(Library& Li);
 	void Choose(Library& Li);
 	int PrintUserMenu(Library& Li);
 };
 
 //=============Menu=====================
-void PrintMenu();
 int PrintLogin();

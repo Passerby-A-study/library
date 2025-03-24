@@ -64,7 +64,7 @@ bool Library::isBorrow(string& s) {
 		if (book->GetID() == s) {
 			if (book->GetStatus() == false) {
 				book->ChangeStatus();
-				cout << "Successful! " << endl;
+				cout << "Borrow Successfully! " << endl;
 				return true;
 			}
 			else {
@@ -72,6 +72,25 @@ bool Library::isBorrow(string& s) {
 				return false;
 			}
 
+		}
+	}
+	cout << "Do not found, Try Again: " << endl;
+	return false;
+}
+bool Library::isReturn(string& s) {
+	if (s == "q"||s=="Q")
+		return true;
+	for (auto book : BookShelter) {
+		if (book->GetID() == s) {
+			if (book->GetStatus() == true) {
+				book->ChangeStatus();
+				cout << "Return Successfully! " << endl;
+				return true;
+			}
+			else {
+				cout << "Failed, You Hadn't Borrow the Book. Try Again: " << endl;
+				return false;
+			}
 		}
 	}
 	cout << "Do not found, Try Again: " << endl;
@@ -94,10 +113,20 @@ void User::BorrowBook(Library& Li) {
 	}
 
 }
+void User::ReturnBook(Library& Li) {
+	string b;
+	cout << "Pls Enter the ID of Book( q / Q to Quit): ";
+	cin >> b;
+	while (Li.isReturn(b) == false) {
+		cin >> b;
+	}
+
+}
 int User::PrintUserMenu(Library& Li) {
 	cout << "Welcome " << GetName() << " !" << endl;
 	cout << "1 : Show the Books in the Shelter" << endl;
 	cout << "2 : Borrow Book" << endl;
+	cout << "3 : Return Book" << endl;
 	cout << "Pls Enter Your Choice (Enter the Number, Q / q to Quit):" << endl;
 	int choice;
 	cin >> choice;
@@ -117,6 +146,9 @@ void User::Choose(Library& Li) {
 		case 2:
 			BorrowBook(Li);
 			break;
+		case 3:
+			ReturnBook(Li);
+			break;
 		case 0:
 			return;
 		}
@@ -130,10 +162,15 @@ int PrintLogin() {
 	cout << "1 : Admin" << endl;
 	cout << "2 : User" << endl;
 	cout << "Choose Your Identity (Enter the Number, Q / q to Quit):" << endl;
-	int choice;
-	cin >> choice;
-	if (!cin) {
+	string input;
+	cin >> input;
+	if (input == "q" || input == "Q") {
 		return 0;
 	}
-	return choice;
+	try {
+		return std::stoi(input);
+	}
+	catch (...) {
+		return 0;
+	}
 }
